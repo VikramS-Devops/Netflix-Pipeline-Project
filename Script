@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone the Code') {
             steps {
-                git credentialsId: 'git-creds', url: 'https://github.com/KastroVKiran/Netflix-Pipeline-Project.git'
+                git 'https://github.com/VikramS-Devops/Netflix-Pipeline-Project.git'
             }
         }
         stage('Maven Build') {
@@ -21,13 +21,13 @@ pipeline {
                 }
             }
         }
-        stage('Deployment Stage') {
+        stage('Deploy Stage') {
             steps {
                 script {
                     // Ensure target directory exists before copying
                     sh 'ls -l target'
                     // Deploy the WAR file to Tomcat
-                    sh 'sudo cp target/NETFLIX-1.2.2.war /root/apache-tomcat-9.0.93/webapps'
+                    sh 'sudo cp target/NETFLIX-1.2.2.war /home/ubuntu/apache-tomcat-9.0.96/webapps'
                 }
             }
         }
@@ -39,4 +39,3 @@ pipeline {
             cleanWs() // Clean workspace after build
         }
     }
-}
